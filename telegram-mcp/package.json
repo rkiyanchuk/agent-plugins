@@ -1,0 +1,13 @@
+{
+  "name": "telegram-mcp-plugin",
+  "version": "0.1.0",
+  "description": "Login helper for the telegram-mcp Claude Code plugin (2FA-capable session creation).",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "login": "bun run scripts/tg-login.mjs"
+  },
+  "dependencies": {
+    "telegram": "^2.26.22"
+  }
+}

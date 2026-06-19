@@ -1,0 +1,31 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-plugins",
+  "owner": {
+    "name": "Ruslan Kiyanchuk",
+    "url": "https://github.com/rkiyanchuk"
+  },
+  "metadata": {
+    "description": "Ruslan's Claude Code plugins — MCP servers and configs packaged for one-step install.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "telegram-mcp",
+      "source": "./telegram-mcp",
+      "description": "Full Telegram access for Claude Code via the @overpod/mcp-telegram userbot server — read/send messages, manage chats, channels, groups, polls, stories, and more.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Ruslan Kiyanchuk"
+      },
+      "category": "messaging",
+      "keywords": [
+        "telegram",
+        "mcp",
+        "messaging",
+        "mtproto",
+        "userbot"
+      ]
+    }
+  ]
+}
