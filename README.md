@@ -1,6 +1,6 @@
 # claude-plugins
 
-A personal [Claude Code](https://claude.com/claude-code) plugin marketplace —
+A [Claude Code](https://claude.com/claude-code) plugin marketplace —
 MCP servers and configs that don't ship their own plugin, packaged so they can
 be installed in one step instead of set up by hand.
 
@@ -18,7 +18,3 @@ be installed in one step instead of set up by hand.
 | [`telegram-mcp`](./telegram-mcp) | Full Telegram access via the `@overpod/mcp-telegram` userbot server — read/send messages, manage chats, channels, groups, polls, stories, and more. |
 
 See each plugin's own README for setup (credentials, login, etc.).
-
-## License
-
-MIT — see [LICENSE](LICENSE).
