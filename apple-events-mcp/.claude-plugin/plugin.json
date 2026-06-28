@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "apple-events-mcp",
+  "version": "0.1.0",
+  "description": "Native macOS Reminders and Calendar access for Claude Code via FradSer's mcp-server-apple-events (EventKit) — create/read/update/delete reminders and events, recurring rules, priorities, location triggers, alarms, and batch operations.",
+  "author": {
+    "name": "Ruslan Kiyanchuk",
+    "email": "ruslan.kiyanchuk@gmail.com",
+    "url": "https://github.com/rkiyanchuk"
+  },
+  "homepage": "https://github.com/rkiyanchuk/claude-plugins/tree/main/apple-events-mcp",
+  "repository": "https://github.com/rkiyanchuk/claude-plugins",
+  "license": "MIT",
+  "keywords": [
+    "apple",
+    "reminders",
+    "calendar",
+    "mcp",
+    "eventkit",
+    "macos"
+  ]
+}

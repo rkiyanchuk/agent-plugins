@@ -11,6 +11,24 @@
   },
   "plugins": [
     {
+      "name": "apple-events-mcp",
+      "source": "./apple-events-mcp",
+      "description": "Native macOS Reminders and Calendar access via FradSer's mcp-server-apple-events (EventKit) — full CRUD, recurring rules, priorities, location triggers, alarms, and batch operations.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Ruslan Kiyanchuk"
+      },
+      "category": "productivity",
+      "keywords": [
+        "apple",
+        "reminders",
+        "calendar",
+        "mcp",
+        "eventkit",
+        "macos"
+      ]
+    },
+    {
       "name": "telegram-mcp",
       "source": "./telegram-mcp",
       "description": "Full Telegram access for Claude Code via the @overpod/mcp-telegram userbot server — read/send messages, manage chats, channels, groups, polls, stories, and more.",
