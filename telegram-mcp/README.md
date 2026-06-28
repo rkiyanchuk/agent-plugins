@@ -39,12 +39,12 @@ Optional environment variables (inherited by the server if set):
 ### 2. Install the plugin
 
 ```
-/plugin marketplace add rkiyanchuk/claude-plugins
-/plugin install telegram-mcp@claude-plugins
+/plugin marketplace add rkiyanchuk/cc-plugins
+/plugin install telegram-mcp@cc-plugins
 ```
 
 (Or point the marketplace at a local clone during development:
-`/plugin marketplace add /path/to/claude-plugins`.)
+`/plugin marketplace add /path/to/cc-plugins`.)
 
 ### 3. Log in to Telegram (one time)
 

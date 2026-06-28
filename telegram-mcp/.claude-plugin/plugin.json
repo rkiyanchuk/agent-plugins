@@ -8,8 +8,8 @@
     "email": "ruslan.kiyanchuk@gmail.com",
     "url": "https://github.com/rkiyanchuk"
   },
-  "homepage": "https://github.com/rkiyanchuk/claude-plugins/tree/main/telegram-mcp",
-  "repository": "https://github.com/rkiyanchuk/claude-plugins",
+  "homepage": "https://github.com/rkiyanchuk/cc-plugins/tree/main/telegram-mcp",
+  "repository": "https://github.com/rkiyanchuk/cc-plugins",
   "license": "MIT",
   "keywords": [
     "telegram",

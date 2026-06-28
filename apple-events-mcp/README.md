@@ -19,12 +19,12 @@ location triggers, multiple alarms, search, and batch operations.
 ## Install
 
 ```
-/plugin marketplace add rkiyanchuk/claude-plugins
-/plugin install apple-events-mcp@claude-plugins
+/plugin marketplace add rkiyanchuk/cc-plugins
+/plugin install apple-events-mcp@cc-plugins
 ```
 
 (Or point the marketplace at a local clone during development:
-`/plugin marketplace add /path/to/claude-plugins`.)
+`/plugin marketplace add /path/to/cc-plugins`.)
 
 ## Permissions
 
