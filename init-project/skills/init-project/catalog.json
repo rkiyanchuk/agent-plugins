@@ -1,0 +1,34 @@
+{
+  "_comment": "Catalog of plugins and MCP servers offered by /init-project. Single source of truth — edit this to change what the picker offers. 'plugins[].id' uses the exact name@marketplace string that goes into settings.json 'enabledPlugins'. 'mcpServers[].config' is copied verbatim into the project's .mcp.json (supports ${VAR} / ${VAR:-default}). Optional 'suggest' preselects an item as a default: {\"always\":true} preselect everywhere; {\"languages\":[...]} preselect when any listed language is detected; {\"signals\":[...]} preselect when any listed signal is present. Signals: has-dependencies, git-remote, github-remote, web-frontend. Items with no 'suggest' are offered but never preselected.",
+
+  "plugins": [
+    { "id": "context7@claude-plugins-official",          "description": "Up-to-date library/framework/API docs lookup.",      "suggest": { "signals": ["has-dependencies"] } },
+    { "id": "pr-review-toolkit@claude-plugins-official",  "description": "Structured pull-request review agents & commands.",   "suggest": { "signals": ["git-remote"] } },
+    { "id": "typescript-lsp@claude-plugins-official",     "description": "TypeScript/JavaScript language server.",             "suggest": { "languages": ["typescript", "javascript"] } },
+    { "id": "pyright-lsp@claude-plugins-official",        "description": "Python (Pyright) language server.",                 "suggest": { "languages": ["python"] } },
+    { "id": "rust-analyzer-lsp@claude-plugins-official",  "description": "Rust (rust-analyzer) language server.",              "suggest": { "languages": ["rust"] } },
+    { "id": "gopls-lsp@claude-plugins-official",          "description": "Go (gopls) language server.",                       "suggest": { "languages": ["go"] } },
+    { "id": "lua-lsp@claude-plugins-official",            "description": "Lua language server.",                              "suggest": { "languages": ["lua"] } },
+    { "id": "swift-lsp@claude-plugins-official",          "description": "Swift language server.",                            "suggest": { "languages": ["swift"] } },
+    { "id": "chrome-devtools-mcp@claude-plugins-official", "description": "Drive Chrome DevTools for browser debugging.",      "suggest": { "signals": ["web-frontend"] } },
+    { "id": "security-guidance@claude-plugins-official",  "description": "Security best-practice guidance." },
+    { "id": "skill-creator@claude-plugins-official",      "description": "Scaffold and author new skills." },
+    { "id": "firecrawl@claude-plugins-official",          "description": "Web scraping / crawling tools." },
+    { "id": "obsidian@obsidian-skills",                   "description": "Obsidian vault read/write skills." },
+    { "id": "andrej-karpathy-skills@karpathy-skills",     "description": "Karpathy coding-guideline skills." }
+  ],
+
+  "mcpServers": {
+    "github": {
+      "description": "GitHub MCP — issues, PRs, repos. Needs GITHUB_TOKEN.",
+      "suggest": { "signals": ["github-remote"] },
+      "config": {
+        "type": "http",
+        "url": "https://api.githubcopilot.com/mcp/",
+        "headers": {
+          "Authorization": "Bearer ${GITHUB_TOKEN}"
+        }
+      }
+    }
+  }
+}

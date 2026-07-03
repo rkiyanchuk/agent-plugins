@@ -6,10 +6,29 @@
     "url": "https://github.com/rkiyanchuk"
   },
   "metadata": {
-    "description": "Ruslan's Claude Code plugins — MCP servers and configs packaged for one-step install.",
+    "description": "Ruslan's Claude Code plugins — MCP servers, commands, and configs packaged for one-step install.",
     "version": "0.1.0"
   },
   "plugins": [
+    {
+      "name": "init-project",
+      "source": "./init-project",
+      "description": "Bootstrap Claude Code in a project (a /init superset): analyze the repo and write CLAUDE.md, build a codegraph index for large source trees, and interactively enable the right plugins & MCP servers with defaults suggested from the repo's contents. Adds the /init-project command.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Ruslan Kiyanchuk"
+      },
+      "category": "workflow",
+      "keywords": [
+        "init",
+        "bootstrap",
+        "project-setup",
+        "codegraph",
+        "claude-md",
+        "plugins",
+        "mcp"
+      ]
+    },
     {
       "name": "apple-events-mcp",
       "source": "./apple-events-mcp",

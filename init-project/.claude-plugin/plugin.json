@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "init-project",
+  "version": "0.1.0",
+  "description": "Bootstrap Claude Code in a project: analyze the repo and write CLAUDE.md, build a codegraph index for large source trees, and interactively enable the right plugins & MCP servers with defaults suggested from the repo's contents. Adds the /init-project command.",
+  "author": {
+    "name": "Ruslan Kiyanchuk",
+    "email": "ruslan.kiyanchuk@gmail.com",
+    "url": "https://github.com/rkiyanchuk"
+  },
+  "homepage": "https://github.com/rkiyanchuk/cc-plugins/tree/main/init-project",
+  "repository": "https://github.com/rkiyanchuk/cc-plugins",
+  "license": "MIT",
+  "keywords": [
+    "init",
+    "bootstrap",
+    "project-setup",
+    "codegraph",
+    "claude-md",
+    "plugins",
+    "mcp"
+  ]
+}
