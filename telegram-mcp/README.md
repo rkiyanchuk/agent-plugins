@@ -52,33 +52,19 @@ The session is created once and reused (stored at `~/.mcp-telegram/session`, or
 `TELEGRAM_SESSION_PATH` if set). The plugin's server reads that file regardless
 of how it was produced.
 
-**Accounts without 2FA** — ask Claude to run **`telegram-login`** (a QR code
-appears; scan it in Telegram under **Settings → Devices → Link Desktop
-Device**), or run the login from a terminal:
+Ask Claude to run **`telegram-login`** (a QR code appears; scan it in Telegram
+under **Settings → Devices → Link Desktop Device**), or run the login from a
+terminal:
 
 ```bash
 TELEGRAM_API_ID=$TELEGRAM_API_ID TELEGRAM_API_HASH=$TELEGRAM_API_HASH \
   bunx @overpod/mcp-telegram login
 ```
 
-**Accounts with 2FA (two-step verification)** — the *published* server only
-supports QR login, which cannot complete a 2FA login. Use the bundled login
-helper instead, which does a phone + code + password login and writes the
-session file the plugin reads. From the plugin directory
-(`${CLAUDE_PLUGIN_ROOT}`):
-
-```bash
-bun install                                  # one-time, installs GramJS
-TELEGRAM_API_ID=... TELEGRAM_API_HASH=... bun run login
-```
-
-It will prompt for your phone number, the code Telegram sends, and your 2FA
-password.
-
-> **Going away soon:** once
-> [mcp-telegram#59](https://github.com/mcp-telegram/mcp-telegram/pull/59) is
-> merged and released, you can drop the helper — just set
-> `TELEGRAM_2FA_PASSWORD` and use the built-in `telegram-login`.
+**Accounts with 2FA (two-step verification)** — set `TELEGRAM_2FA_PASSWORD`
+(your cloud password) before logging in. The server reads it during the QR
+flow to complete the SRP challenge — no separate steps. The plugin passes the
+variable through to the server automatically.
 
 After logging in, ask Claude to run **`telegram-status`** to confirm the
 connection.
