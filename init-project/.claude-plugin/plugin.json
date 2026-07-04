@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "init-project",
   "version": "0.1.0",
-  "description": "Bootstrap Claude Code in a project: analyze the repo and write CLAUDE.md, build a codegraph index for large source trees, and interactively enable the right plugins & MCP servers with defaults suggested from the repo's contents. Adds the /init-project command.",
+  "description": "Bootstrap Claude Code in a project: analyze the repo and write CLAUDE.md, build a codegraph index for large source trees, and interactively enable the right plugins & MCP servers with defaults suggested from the repo's contents. Invoked as /init-project:init-project.",
   "author": {
     "name": "Ruslan Kiyanchuk",
     "email": "ruslan.kiyanchuk@gmail.com",

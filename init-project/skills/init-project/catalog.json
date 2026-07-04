@@ -1,5 +1,12 @@
 {
-  "_comment": "Catalog of plugins and MCP servers offered by /init-project. Single source of truth — edit this to change what the picker offers. 'plugins[].id' uses the exact name@marketplace string that goes into settings.json 'enabledPlugins'. 'mcpServers[].config' is copied verbatim into the project's .mcp.json (supports ${VAR} / ${VAR:-default}). Optional 'suggest' preselects an item as a default: {\"always\":true} preselect everywhere; {\"languages\":[...]} preselect when any listed language is detected; {\"signals\":[...]} preselect when any listed signal is present. Signals: has-dependencies, git-remote, github-remote, web-frontend. Items with no 'suggest' are offered but never preselected.",
+  "_comment": "Catalog of plugins and MCP servers offered by /init-project. Single source of truth — edit this to change what the picker offers. 'plugins[].id' uses the exact name@marketplace string that goes into settings.json 'enabledPlugins'. 'mcpServers[].config' is copied verbatim into the project's .mcp.json (supports ${VAR} / ${VAR:-default}). Optional 'suggest' preselects an item as a default: {\"always\":true} preselect everywhere; {\"languages\":[...]} preselect when any listed language is detected; {\"signals\":[...]} preselect when any listed signal is present. Signals: has-dependencies, git-remote, github-remote, web-frontend. Items with no 'suggest' are offered but never preselected. This catalog is the recommendation overlay, NOT the full universe — the picker lists everything actually installed (via 'claude plugin list') and floats these recommendations to the top. 'marketplaces' maps a marketplace name to its GitHub repo so a recommended-but-not-installed plugin can be registered and installed.",
+
+  "marketplaces": {
+    "claude-plugins-official": "anthropics/claude-plugins-official",
+    "obsidian-skills":         "kepano/obsidian-skills",
+    "karpathy-skills":         "forrestchang/andrej-karpathy-skills",
+    "cc-plugins":              "rkiyanchuk/cc-plugins"
+  },
 
   "plugins": [
     { "id": "context7@claude-plugins-official",          "description": "Up-to-date library/framework/API docs lookup.",      "suggest": { "signals": ["has-dependencies"] } },

@@ -3,6 +3,7 @@ name: init-project
 description: Bootstrap Claude Code in a project from scratch. Analyze the codebase and write or refresh CLAUDE.md (like /init), build a codegraph index when the repo is a large enough source tree, and interactively enable the right plugins and MCP servers — with defaults preselected from the repo's contents — writing them into .claude/settings.json and .mcp.json. Use this when setting up a new or freshly cloned project, onboarding Claude Code to a repo, or when the user runs /init-project.
 argument-hint: "[--all | plugin/mcp names]"
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion
+model: sonnet
 ---
 
 # init-project — bootstrap Claude Code in a project
@@ -82,70 +83,116 @@ indexed), so the decision is visible rather than silent.
 
 ## Phase 3 — Pick plugins & MCP servers
 
-Load the catalog: `${CLAUDE_SKILL_DIR}/catalog.json` — `plugins[]` (each an
-`id` = `name@marketplace`, a `description`, and an optional `suggest` rule) and
-`mcpServers{}` (each a `description`, `config` copied verbatim into `.mcp.json`,
-and an optional `suggest`).
+The picker offers **everything installed**, with the items that fit this repo
+floated to the top as recommendations. It can also recommend — and install —
+things that aren't installed yet but clearly fit (e.g. a language server for a
+language the repo uses).
 
-Gather current state so the picker is accurate and idempotent:
+### Discover what exists
 
-- `ROOT/.claude/settings.json` → which `enabledPlugins` are already `true`, and
-  the existing `enabledMcpjsonServers`.
-- `ROOT/.mcp.json` → MCP servers already configured.
-- `claude plugin list` (best-effort; ignore failure) → what's installed.
+One call gives both halves — `claude plugin list --available --json` returns
+`{ "installed": [...], "available": [...] }`:
 
-**Compute defaults** by matching each catalog item's `suggest` against the
-Phase-0 languages and signals:
+- `installed[]` — each `{ id: "name@marketplace", enabled, scope, ... }`: what's
+  installed and whether it's on. Cross-check per-project `enabledPlugins` in
+  `ROOT/.claude/settings.json`, since `enabled` there is the global state.
+- `available[]` — hundreds of `{ pluginId, name, description, marketplaceName }`
+  entries: the not-installed universe. **Don't** pull it all into the picker;
+  scan it only for the obvious fits described below.
 
-- `{"always": true}` → preselect always.
-- `{"languages": [...]}` → preselect if any listed language was detected.
-- `{"signals": [...]}` → preselect if any listed signal is present.
-- no `suggest` → offered, not preselected.
+For MCP servers: `claude mcp list` (text lines `name: command - status`), plus
+`ROOT/.mcp.json` and `enabledMcpjsonServers` in `ROOT/.claude/settings.json`.
 
-Anything already enabled in this project stays selected (mark it `(on)`).
+If the `--json` call fails, fall back to plain `claude plugin list` and
+`~/.claude/plugins/installed_plugins.json`.
 
-**Present** two short grouped lists — Plugins and MCP servers — each line
-`name — description`, with a leading marker for preselected/`(on)` items so the
-user sees the recommendation at a glance. Then let them adjust. Use
+### The recommendation brain
+
+Load `${CLAUDE_SKILL_DIR}/catalog.json`: a `marketplaces` map (marketplace →
+GitHub repo, used when installing), `plugins[]` (each `id`, `description`,
+optional `suggest`), and `mcpServers{}` (each `description`, a `config` copied
+verbatim into `.mcp.json`, optional `suggest`). The catalog is **not** the
+universe — it's the recommendation overlay on top of what's installed.
+
+Mark an item **recommended** when its catalog `suggest` matches the Phase-0
+languages/signals:
+
+- `{"always": true}` → always.
+- `{"languages": [...]}` → any listed language detected.
+- `{"signals": [...]}` → any listed signal present.
+
+Also recommend the obvious fits the catalog doesn't spell out: an installed
+plugin whose purpose plainly matches (a language server for a detected
+language), and — scanning the `--available` list — a not-installed fit, almost
+always a `*-lsp` matching a detected language. Keep recommendations
+high-precision: when unsure, leave an item in "other," don't preselect it.
+
+### Present
+
+Two groups, **Plugins** and **MCP servers**. Within each, list **Recommended**
+first (preselected), then **Other installed** (not preselected). Tag every line
+so the action is unambiguous:
+
+- `(on)` — already enabled in this project; stays on.
+- `(enable)` — installed, will be enabled for this project.
+- `(install)` — not installed; will be fetched, then enabled.
+- `(add)` — MCP server that will be written into `.mcp.json`.
+
+Line format: `<tag> name — description`. Then let the user adjust. Use
 `AskUserQuestion` (multiSelect) only when a group has ≤4 items; otherwise ask in
-plain text and let them reply with names, numbers, `all`, or `none` — the lists
-are usually longer than a 4-option picker allows.
+plain text — the installed list is usually long — and accept names, numbers,
+`all`, `none`, or `recommended`.
 
 **Argument shortcuts** (`$ARGUMENTS`):
-- `--all` — preselect every catalog item; still confirm before writing.
+- `--all` — preselect every **recommended** item (not every installed plugin);
+  still confirm before acting.
 - a space/comma-separated list of plugin `id`s or MCP names — preselect exactly
-  those, skip the prompt, go straight to confirmation.
+  those, installing any that are missing, then skip the prompt and go straight
+  to confirmation.
 
-## Phase 4 — Write the project config
+## Phase 4 — Apply the choices
 
-Merge, never clobber. Read each file, change only the relevant keys, preserve
-everything else and the existing formatting where practical.
+Confirm the whole plan before anything with side effects: list what will be
+**installed** (network), **enabled**, and **written**, then proceed. Skip this
+extra confirmation only when the user already narrowed the set via arguments.
+
+**Install chosen `(install)` plugins.** For each, ensure its marketplace is
+registered — if the `@marketplace` half isn't in `claude plugin marketplace
+list`, add it from the catalog `marketplaces` map (`claude plugin marketplace
+add <repo>`). Then `claude plugin install <id> --scope project`. For a chosen
+item not in the catalog, install it by its `pluginId` from the `available[]`
+list (its `marketplaceName` tells you which marketplace to register first).
+
+**MCP servers** need no pre-install: their `config` (npx/bunx/http) is written
+into `.mcp.json` and fetched on first run.
+
+Then persist config — merge, never clobber; change only the relevant keys.
 
 **`ROOT/.claude/settings.json`** (create if missing):
-- For each chosen plugin: `enabledPlugins["<id>"] = true`. Leave unrelated
-  entries alone. Only set an entry to `false` if the user explicitly deselected
-  one that was previously `true`.
-- For each chosen MCP server: add its name to `enabledMcpjsonServers` (create
-  the array if absent; don't duplicate) so the user isn't re-prompted to approve
-  it. Don't set `enableAllProjectMcpServers` unless the user asks to approve
-  everything.
+- Every chosen plugin (already installed, newly installed, or already present):
+  `enabledPlugins["<id>"] = true`. Leave unrelated entries alone; only set an
+  entry to `false` if the user explicitly turned off one that was `true`.
+- Every chosen MCP server: add its name to `enabledMcpjsonServers` (create the
+  array if absent; no duplicates) so it's pre-approved. Don't set
+  `enableAllProjectMcpServers` unless the user asks to approve everything.
 
 **`ROOT/.mcp.json`** (only if MCP servers were chosen; create if missing):
 - Under `mcpServers`, add each chosen server's `config` verbatim, keyed by its
   catalog name. Preserve servers already there.
 
 Validate every file you touched is valid JSON (`python3 -m json.tool <file>` or
-`jq . <file>`). Re-running the whole skill must converge, not pile up duplicates
-or flip unrelated settings.
+`jq . <file>`). Re-running must converge: no duplicate array entries, no flipped
+unrelated settings, no reinstall of a plugin that's already present.
 
 ## Phase 5 — Report
 
 Summarize concretely:
 - CLAUDE.md — created or updated, and the gist of what went in.
 - Codegraph — indexed (with the `status` numbers), or skipped and why.
-- Plugins enabled and MCP servers added/approved, with exact file paths written.
-- **Restart reminder**: plugin and MCP changes take effect on the next Claude
-  Code start. For any MCP server using `${VAR}` placeholders (e.g.
+- Plugins **newly installed** (if any), plugins enabled, and MCP servers
+  added/approved — with the exact file paths written.
+- **Restart reminder**: installs, enables, and MCP changes take effect on the
+  next Claude Code start. For any MCP server using `${VAR}` placeholders (e.g.
   `GITHUB_TOKEN`), name the env vars the user must set.
 
 ## Notes
