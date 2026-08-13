@@ -1,39 +1,20 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "cc-plugins",
+  "name": "agent-plugins",
   "owner": {
     "name": "Ruslan Kiyanchuk",
     "url": "https://github.com/rkiyanchuk"
   },
   "metadata": {
-    "description": "Ruslan's Claude Code plugins — MCP servers, commands, and configs packaged for one-step install.",
-    "version": "0.1.0"
+    "description": "Ruslan's coding-agent plugins — MCP servers, skills, and configs packaged for one-step install in Claude Code and oh-my-pi.",
+    "version": "0.2.0"
   },
   "plugins": [
-    {
-      "name": "init-project",
-      "source": "./init-project",
-      "description": "Bootstrap Claude Code in a project (a /init superset): analyze the repo and write CLAUDE.md, build a codegraph index for large source trees, and interactively enable the right plugins & MCP servers with defaults suggested from the repo's contents. Invoked as /init-project:init-project.",
-      "version": "0.1.0",
-      "author": {
-        "name": "Ruslan Kiyanchuk"
-      },
-      "category": "workflow",
-      "keywords": [
-        "init",
-        "bootstrap",
-        "project-setup",
-        "codegraph",
-        "claude-md",
-        "plugins",
-        "mcp"
-      ]
-    },
     {
       "name": "apple-events-mcp",
       "source": "./apple-events-mcp",
       "description": "Native macOS Reminders and Calendar access via FradSer's mcp-server-apple-events (EventKit) — full CRUD, recurring rules, priorities, location triggers, alarms, and batch operations.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "author": {
         "name": "Ruslan Kiyanchuk"
       },
@@ -50,8 +31,8 @@
     {
       "name": "telegram-mcp",
       "source": "./telegram-mcp",
-      "description": "Full Telegram access for Claude Code via the @overpod/mcp-telegram userbot server — read/send messages, manage chats, channels, groups, polls, stories, and more.",
-      "version": "0.1.0",
+      "description": "Full Telegram access via the @overpod/mcp-telegram userbot server — read/send messages, manage chats, channels, groups, polls, stories, and more.",
+      "version": "0.2.0",
       "author": {
         "name": "Ruslan Kiyanchuk"
       },

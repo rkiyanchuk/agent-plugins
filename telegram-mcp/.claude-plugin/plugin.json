@@ -1,15 +1,15 @@
 {
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "telegram-mcp",
-  "version": "0.1.0",
-  "description": "Full Telegram access for Claude Code via the @overpod/mcp-telegram userbot server — read/send messages, manage chats, channels, groups, polls, stories, and more. Connects as your own account over MTProto.",
+  "version": "0.2.0",
+  "description": "Full Telegram access via the @overpod/mcp-telegram userbot server — read/send messages, manage chats, channels, groups, polls, stories, and more. Connects as your own account over MTProto.",
   "author": {
     "name": "Ruslan Kiyanchuk",
     "email": "ruslan.kiyanchuk@gmail.com",
     "url": "https://github.com/rkiyanchuk"
   },
-  "homepage": "https://github.com/rkiyanchuk/cc-plugins/tree/main/telegram-mcp",
-  "repository": "https://github.com/rkiyanchuk/cc-plugins",
+  "homepage": "https://github.com/rkiyanchuk/agent-plugins/tree/main/telegram-mcp",
+  "repository": "https://github.com/rkiyanchuk/agent-plugins",
   "license": "MIT",
   "keywords": [
     "telegram",

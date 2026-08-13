@@ -1,12 +1,12 @@
 # telegram-mcp
 
-A [Claude Code](https://claude.com/claude-code) plugin that gives Claude full
-access to your Telegram account, backed by the
+A coding-agent plugin that gives your agent full access to your Telegram
+account, backed by the
 [`@overpod/mcp-telegram`](https://github.com/mcp-telegram/mcp-telegram) MCP
 server.
 
 Unlike the read-only hosted bridge, this connects as **your own account** over
-MTProto (a *userbot*), so Claude can both read **and** act — send messages,
+MTProto (a *userbot*), so the agent can both read **and** act — send messages,
 manage chats, channels, groups, polls, stories, contacts, and more (~200 tools).
 
 ## Requirements
@@ -38,13 +38,22 @@ Optional environment variables (inherited by the server if set):
 
 ### 2. Install the plugin
 
+Claude Code:
+
 ```
-/plugin marketplace add rkiyanchuk/cc-plugins
-/plugin install telegram-mcp@cc-plugins
+/plugin marketplace add rkiyanchuk/agent-plugins
+/plugin install telegram-mcp@agent-plugins
+```
+
+oh-my-pi:
+
+```
+/marketplace add rkiyanchuk/agent-plugins
+/marketplace install telegram-mcp@agent-plugins
 ```
 
 (Or point the marketplace at a local clone during development:
-`/plugin marketplace add /path/to/cc-plugins`.)
+`/plugin marketplace add /path/to/agent-plugins`.)
 
 ### 3. Log in to Telegram (one time)
 
@@ -52,9 +61,9 @@ The session is created once and reused (stored at `~/.mcp-telegram/session`, or
 `TELEGRAM_SESSION_PATH` if set). The plugin's server reads that file regardless
 of how it was produced.
 
-Ask Claude to run **`telegram-login`** (a QR code appears; scan it in Telegram
-under **Settings → Devices → Link Desktop Device**), or run the login from a
-terminal:
+Ask the agent to run **`telegram-login`** (a QR code appears; scan it in
+Telegram under **Settings → Devices → Link Desktop Device**), or run the login
+from a terminal:
 
 ```bash
 TELEGRAM_API_ID=$TELEGRAM_API_ID TELEGRAM_API_HASH=$TELEGRAM_API_HASH \
@@ -66,7 +75,7 @@ TELEGRAM_API_ID=$TELEGRAM_API_ID TELEGRAM_API_HASH=$TELEGRAM_API_HASH \
 flow to complete the SRP challenge — no separate steps. The plugin passes the
 variable through to the server automatically.
 
-After logging in, ask Claude to run **`telegram-status`** to confirm the
+After logging in, ask the agent to run **`telegram-status`** to confirm the
 connection.
 
 ## What you get
@@ -94,4 +103,4 @@ including:
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](../LICENSE).
