@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
   "name": "telegram-mcp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Full Telegram access via the @overpod/mcp-telegram userbot server — read/send messages, manage chats, channels, groups, polls, stories, and more. Connects as your own account over MTProto.",
   "author": {
     "name": "Ruslan Kiyanchuk",
